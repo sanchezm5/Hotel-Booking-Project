@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
@@ -41,5 +42,20 @@ public class Room implements Serializable {
 
     public void setOccupant(String occupant) {
         this.occupant = occupant;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return Objects.equals(getId(), room.getId()) &&
+                Objects.equals(getNumber(), room.getNumber()) &&
+                Objects.equals(getOccupant(), room.getOccupant());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId(), getNumber(), getOccupant());
     }
 }
