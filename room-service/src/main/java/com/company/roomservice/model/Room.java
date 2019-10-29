@@ -20,6 +20,14 @@ public class Room implements Serializable {
     private Integer number;
     private String occupant;
 
+    public Room(Integer id, Integer number, String occupant) {
+        this.id = id;
+        this.number = number;
+        this.occupant = occupant;
+    }
+
+    public Room(){}
+
     public Integer getId() {
         return id;
     }
@@ -44,6 +52,7 @@ public class Room implements Serializable {
         this.occupant = occupant;
     }
 
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,4 +67,14 @@ public class Room implements Serializable {
     public int hashCode() {
         return Objects.hash(getId(), getNumber(), getOccupant());
     }
+
+    @Override
+    public String toString() {
+        return "Room{" +
+                "id=" + id +
+                ", number=" + number +
+                ", occupant='" + occupant + '\'' +
+                '}';
+    }
+
 }
