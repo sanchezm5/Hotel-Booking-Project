@@ -8,15 +8,14 @@ import javax.validation.Valid;
 import java.util.List;
 
 @FeignClient(name = "room-service")
-@RequestMapping("/room")
 public interface RoomClient {
 
-    @GetMapping
+    @RequestMapping(value = "/room", method = RequestMethod.GET)
     List<RoomViewModel> getAllRooms();
 
-    @GetMapping("/{id}")
+    @RequestMapping(value = "/room/{id}", method = RequestMethod.GET)
     RoomViewModel getRoom(@PathVariable("id") int id);
 
-    @PutMapping("/{id}")
+    @RequestMapping(value = "/room/{id}", method = RequestMethod.PUT)
     void updateRoom(@RequestBody @Valid RoomViewModel roomVM, @PathVariable("id") int id);
 }

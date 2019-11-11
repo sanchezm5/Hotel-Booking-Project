@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class ServiceLayer {
@@ -19,12 +20,30 @@ public class ServiceLayer {
 
     // get available rooms
     public List<RoomViewModel> getAvailableRooms() {
-        return null;
+        List<RoomViewModel> rooms = roomClient.getAllRooms();
+
+        List<RoomViewModel> availableRooms = rooms.stream()
+                .filter(room -> room.getOccupant().equals("vacant"))
+                .collect(Collectors.toList());
+
+        if(availableRooms.size() == 0) {
+            throw new IllegalArgumentException("Sorry, there are currently no available rooms at this time");
+        }
+
+        return availableRooms;
     }
 
     // update occupant
     public void updateOccupant(Integer id, String occupant) {
+        RoomViewModel room = roomClient.getRoom(id);
 
+        if(room.getOccupant().equals("vacant")) {
+            room.setOccupant(occupant);
+        }
+        else if(!room.getOccupant().equals("vacant")) {
+            room.setOccupant("vacant");
+        }
+
+        roomClient.updateRoom(room, id);
     }
-
 }

@@ -5,8 +5,6 @@ import com.company.hoteledgeservice.viewmodel.RoomViewModel;
 import org.junit.Before;
 import org.junit.Test;
 
-import javax.xml.ws.Service;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,7 +30,18 @@ public class ServiceLayerTest {
 
     @Test
     public void updateOccupant() {
+        // Arrange
+        RoomViewModel room = new RoomViewModel();
+        room.setId(11);
+        room.setNumber(508);
+        room.setOccupant("Joe Warren");
 
+        // Act
+        service.updateOccupant(11, "vacant");
+        RoomViewModel fromService = roomClient.getRoom(11);
+
+        // Assert
+        assertFalse(room.equals(fromService));
     }
 
     public void setUpRoomClientMock() {
@@ -59,7 +68,7 @@ public class ServiceLayerTest {
         RoomViewModel room1 = new RoomViewModel();
         room1.setId(11);
         room1.setNumber(508);
-        room1.setOccupant("vacant");
+        room1.setOccupant("Joe Warren");
 
         doNothing().when(roomClient).updateRoom(room1, 11);
         doReturn(room1).when(roomClient).getRoom(11);
