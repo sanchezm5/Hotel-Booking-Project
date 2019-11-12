@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import javax.transaction.Transactional;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class RoomService {
@@ -32,6 +33,7 @@ public class RoomService {
     }
 
     public RoomViewModel findRoomById(int id) {
+
         Room room = roomRepo.getOne(id);
 
         if (room == null) {
@@ -39,6 +41,9 @@ public class RoomService {
         } else {
             return buildRoomViewModel(room);
         }
+
+
+
     }
 
     public List<RoomViewModel> findAllRooms() {
@@ -74,4 +79,6 @@ public class RoomService {
 
         return roomViewModel;
     }
+
+
 }

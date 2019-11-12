@@ -1,11 +1,17 @@
 package com.company.hoteledgeservice.model;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 import java.util.Objects;
 
 public class Room {
 
     private Integer id;
+    @NotNull
     private Integer number;
+    @NotBlank()
+    @Size(min = 1, max = 20, message = "Occupant name must be between 1 and 20 characters long")
     private String occupant;
 
     public Integer getId() {
